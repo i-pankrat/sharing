@@ -19,7 +19,7 @@ jobs:
         with:
           version: 5.15.2
       - name: Configure CMake
-        run: |
+        run: >
           cmake -B ${{github.workspace}}/build
           -DCMAKE_CXX_COMPILER=g++-10
           -DCMAKE_BUILD_TYPE=Release
