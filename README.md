@@ -63,3 +63,17 @@ string "code main.cpp"
 ```bash
 $ dbus-send --session --print-reply --dest=ru.pankrat.Sharing --type=method_call / org.freedesktop.DBus.Introspectable.Introspect
 ```
+
+# Как собрать из исходников
+
+Зависимости:
+
+* g++
+* cmake
+* Qt Core и Qt D-Bus (>= 5)
+
+Сборка:
+```bash
+$ cmake -B build
+$ cmake --build build/
+```
