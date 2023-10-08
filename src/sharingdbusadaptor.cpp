@@ -1,9 +1,8 @@
-#include "sharingdbusadaptor.h"
-#include "QDebug"
-#include "QDBusMessage"
-#include "QDBusConnection"
-#include "QDBusError"
 #include <vector>
+
+#include "sharingdbusadaptor.h"
+
+#include "QDebug"
 
 #define SHARING_FILE_PLACE "\%file"
 

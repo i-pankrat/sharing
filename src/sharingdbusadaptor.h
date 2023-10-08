@@ -2,7 +2,6 @@
 #define __SHARINGDBUSADAPTOR_H__
 
 #include <vector>
-#include <string>
 
 #include <QtDBus/QDBusAbstractAdaptor>
 
