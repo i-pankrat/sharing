@@ -25,7 +25,6 @@ public Q_SLOTS:
 Q_SIGNALS:
 
 private:
-    QStringList registeredApps;
     QMap<QString, QStringList> appToFileTypes;
     QMap<QString, QString> appToOpen;
 };

@@ -5,26 +5,24 @@
 #include "QDBusError"
 #include <vector>
 
-#define SB_FILE_PLACE "\%file"
+#define SHARING_FILE_PLACE "\%file"
 
 SharingDBusAdaptor::SharingDBusAdaptor(QObject *parent) :
     QDBusAbstractAdaptor(parent) {
 }
 
 void SharingDBusAdaptor::registerApp(QString appname) {
-    registeredApps.append(appname);
+    appToFileTypes[appname] = QStringList();
     return;
 }
 
 QStringList SharingDBusAdaptor::getRegisteredApps() {
-    return registeredApps;
+    return appToFileTypes.keys();
 }
 
 void SharingDBusAdaptor::addFileType(QString appname, QString filetype) {
-    if (appToFileTypes.contains(appname)) {
+    if (appToFileTypes.contains(appname) && !appToFileTypes[appname].contains(filetype)) {
         appToFileTypes[appname].append(filetype);
-    } else {
-        appToFileTypes[appname] = QStringList(filetype);
     }
 }
 
@@ -37,22 +35,14 @@ QStringList SharingDBusAdaptor::getAvailableFileTypes(QString appname) {
 }
 
 void SharingDBusAdaptor::addOpenWay(QString appname, QString str) {
-
-    if (!registeredApps.contains(appname)) {
-        return;
-    }
-
-    if (str.contains(SB_FILE_PLACE)) {
+    if (appToFileTypes.contains(appname) && str.contains(SHARING_FILE_PLACE)) {
         appToOpen[appname] = str;
     }
-
-    return;
 }
 
 QString SharingDBusAdaptor::open(QString appname, QString filetype, QString file) {
-    if (!registeredApps.contains(appname)) {
+    if (!appToFileTypes.contains(appname)) {
         qDebug() << "app is not registered";
-        // TODO: throw error
         return QString("");
     }
 
@@ -67,5 +57,5 @@ QString SharingDBusAdaptor::open(QString appname, QString filetype, QString file
     }
 
     auto result = appToOpen[appname];
-    return result.replace(QString(SB_FILE_PLACE), file);
+    return result.replace(QString(SHARING_FILE_PLACE), file);
 }
