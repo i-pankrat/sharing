@@ -34,3 +34,6 @@
 # VS code & formatter config
 .editorconfig
 .vscode
+
+# Builds
+build
