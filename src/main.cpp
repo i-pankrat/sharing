@@ -28,6 +28,6 @@ int main(int argc, char *argv[]) {
 
     qInfo() << "object registered...";
 
-    qInfo() << "waiting";
+    qInfo() << "waiting...";
     return app.exec();
 }
