@@ -15,7 +15,7 @@ find_package(QT NAMES Qt6 Qt5 COMPONENTS Core DBus REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core DBus REQUIRED)
 
 set(PROJECT_SOURCES
-main.cpp sharingdbusadaptor.cpp sharingdbusadaptor.h
+src/main.cpp src/sharingdbusadaptor.cpp src/sharingdbusadaptor.h
 )
 
 add_executable(${PROJECT_NAME} ${PROJECT_SOURCES})
