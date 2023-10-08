@@ -57,13 +57,11 @@ QString SharingDBusAdaptor::open(QString appname, QString filetype, QString file
     }
 
     if (!appToOpen.contains(appname)) {
-        // TODO: throw error
         qDebug() << "app does not provide way to open files";
         return QString("");
     }
 
     if (!appToFileTypes[appname].contains(filetype)) {
-        // TODO: throw error
         qDebug() << "app does not support such filetype";
         return QString("");
     }
@@ -71,4 +69,3 @@ QString SharingDBusAdaptor::open(QString appname, QString filetype, QString file
     auto result = appToOpen[appname];
     return result.replace(QString(SB_FILE_PLACE), file);
 }
-
