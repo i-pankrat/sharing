@@ -1,8 +1,11 @@
 #include "sharingdbusadaptor.h"
 #include "QDebug"
+#include "QDBusMessage"
+#include "QDBusConnection"
+#include "QDBusError"
 #include <vector>
 
-#define FILE_PLACE "\%file"
+#define SB_FILE_PLACE "\%file"
 
 SharingDBusAdaptor::SharingDBusAdaptor(QObject *parent) :
     QDBusAbstractAdaptor(parent) {
@@ -18,7 +21,6 @@ QStringList SharingDBusAdaptor::getRegisteredApps() {
 }
 
 void SharingDBusAdaptor::addFileType(QString appname, QString filetype) {
-    // TODO: check that appname is registered
     if (appToFileTypes.contains(appname)) {
         appToFileTypes[appname].append(filetype);
     } else {
@@ -30,7 +32,6 @@ QStringList SharingDBusAdaptor::getAvailableFileTypes(QString appname) {
     if (appToFileTypes.contains(appname)) {
         return appToFileTypes[appname];
     } else {
-        // TODO: return error
         return QStringList();
     }
 }
@@ -38,18 +39,14 @@ QStringList SharingDBusAdaptor::getAvailableFileTypes(QString appname) {
 void SharingDBusAdaptor::addOpenWay(QString appname, QString str) {
 
     if (!registeredApps.contains(appname)) {
-        // TODO: throw error
         return;
     }
 
-
-    if (!str.contains(FILE_PLACE)) {
-        // TODO: return error
-        return;
-    } else {
+    if (str.contains(SB_FILE_PLACE)) {
         appToOpen[appname] = str;
-        return;
     }
+
+    return;
 }
 
 QString SharingDBusAdaptor::open(QString appname, QString filetype, QString file) {
@@ -72,6 +69,6 @@ QString SharingDBusAdaptor::open(QString appname, QString filetype, QString file
     }
 
     auto result = appToOpen[appname];
-    return result.replace(QString(FILE_PLACE), file);
+    return result.replace(QString(SB_FILE_PLACE), file);
 }
 
